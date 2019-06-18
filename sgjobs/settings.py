@@ -117,10 +117,10 @@ AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 FEED_URI = 's3://sgjobs-data/%(name)s/{}.json'.format(today.strftime('%Y-%m-%d'))
 FEED_FORMAT = 'json'
 
-print("AWS_ACCESS_KEY_ID: {}".format(os.environ.get('AWS_ACCESS_KEY_ID')))
-print("AWS_SECRET_ACCESS_KEY: {}".format(os.environ.get('AWS_SECRET_ACCESS_KEY')))
-print("DEPLOYMENT_ENV: {}".format(os.environ.get('DEPLOYMENT_ENV')))
-print("MAX_PAGES: {}".format(os.environ.get('MAX_PAGES')))
+# print("AWS_ACCESS_KEY_ID: {}".format(os.environ.get('AWS_ACCESS_KEY_ID')))
+# print("AWS_SECRET_ACCESS_KEY: {}".format(os.environ.get('AWS_SECRET_ACCESS_KEY')))
+# print("DEPLOYMENT_ENV: {}".format(os.environ.get('DEPLOYMENT_ENV')))
+# print("MAX_PAGES: {}".format(os.environ.get('MAX_PAGES')))
 
 # else:
 #     # Feed output to local folder

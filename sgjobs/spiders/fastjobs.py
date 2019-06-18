@@ -15,9 +15,7 @@ class FastjobsSpider(scrapy.Spider):
     default_max_limit = -1
     start_urls = [base_url.format(1)]
     crawl_page_limit = default_max_limit
-    settings = get_project_settings()
-    max_pages = settings.get('MAX_PAGES', -1)
-    num_pages = 1
+    settings = get_project_settings()    
 
     def parse(self, response):
 
@@ -31,8 +29,7 @@ class FastjobsSpider(scrapy.Spider):
 
             # Get next page
             next_pages = soup.find_all('li', class_='next')
-            if next_pages and next_pages[0].a and (self.max_pages < 0 or self.num_pages < self.max_pages):
-                self.num_pages += 1
+            if next_pages and next_pages[0].a:                
                 yield scrapy.Request(next_pages[0].a['href'], callback=self.parse)
 
 
