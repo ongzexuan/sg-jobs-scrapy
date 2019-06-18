@@ -105,6 +105,7 @@ HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
 # Switch feed out depending on deployment
 print("DEPLOYMENT_ENV: {}".format(os.environ.get('DEPLOYMENT_ENV')))
+print("MAX_PAGES: {}".format(os.environ.get('MAX_PAGES')))
 if os.environ.get('DEPLOYMENT_ENV', 'None') == 'SHUB':
 
     #Feed output to S3
