@@ -46,6 +46,9 @@ CONCURRENT_REQUESTS_PER_DOMAIN = 8
 # Disable cookies (enabled by default)
 COOKIES_ENABLED = False
 
+# Max number of pages to crawl
+MAX_PAGES = os.environ.get('MAX_PAGES', -1)
+
 # Disable Telnet Console (enabled by default)
 #TELNETCONSOLE_ENABLED = False
 
