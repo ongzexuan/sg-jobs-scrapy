@@ -4,7 +4,6 @@ import re
 import scrapy
 
 from bs4 import BeautifulSoup
-from scrapy.utils.project import get_project_settings
 
 
 class FastjobsSpider(scrapy.Spider):
@@ -14,8 +13,7 @@ class FastjobsSpider(scrapy.Spider):
     filter_prefix = 'https://www.fastjobs.sg/singapore-job-ad'
     default_max_limit = -1
     start_urls = [base_url.format(1)]
-    crawl_page_limit = default_max_limit
-    settings = get_project_settings()    
+    crawl_page_limit = default_max_limit    
 
     def parse(self, response):
 
@@ -29,7 +27,7 @@ class FastjobsSpider(scrapy.Spider):
 
             # Get next page
             next_pages = soup.find_all('li', class_='next')
-            if next_pages and next_pages[0].a:                
+            if next_pages and next_pages[0].a:
                 yield scrapy.Request(next_pages[0].a['href'], callback=self.parse)
 
 
