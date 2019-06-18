@@ -6,10 +6,6 @@ import sys
 
 from bs4 import BeautifulSoup
 
-sys.path.append("/Users/ongzexuan/Github/sgjobutils")
-
-from sgjobutils.transform import FastjobsTransformer
-
 
 class FastjobsSpider(scrapy.Spider):
     name = 'fastjobs'
