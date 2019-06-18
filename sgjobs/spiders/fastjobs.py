@@ -17,7 +17,7 @@ class FastjobsSpider(scrapy.Spider):
     crawl_page_limit = default_max_limit
     settings = get_project_settings()
     max_pages = settings.get('MAX_PAGES', -1)
-    num_pages = 0
+    num_pages = 1
 
     def parse(self, response):
 
