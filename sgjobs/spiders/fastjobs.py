@@ -2,7 +2,6 @@
 import json
 import re
 import scrapy
-import sys
 
 from bs4 import BeautifulSoup
 
