@@ -1,15 +1,13 @@
 # -*- coding: utf-8 -*-
 import os
 
-from os.path import join, dirname
 from datetime import date
 
 today = date.today()
 
 if os.path.isfile('.env'):
     from dotenv import load_dotenv
-    dotenv_path = join(dirname(__file__), '.env')
-    load_dotenv(dotenv_path)
+    load_dotenv('.env')
 
 # Scrapy settings for sgjobs project
 #
@@ -104,25 +102,18 @@ HTTPCACHE_IGNORE_HTTP_CODES = []
 HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
 # Switch feed out depending on deployment
-# print("AWS_ACCESS_KEY_ID: {}".format(os.environ.get('AWS_ACCESS_KEY_ID')))
-# print("AWS_SECRET_ACCESS_KEY: {}".format(os.environ.get('AWS_SECRET_ACCESS_KEY')))
-# print("DEPLOYMENT_ENV: {}".format(os.environ.get('DEPLOYMENT_ENV')))
-# print("MAX_PAGES: {}".format(os.environ.get('MAX_PAGES')))
-# if os.environ.get('DEPLOYMENT_ENV', 'None') == 'SHUB':
+if os.path.isfile('.env') and os.environ.get('DEVELOPMENT_ENV', None) == 'LOCAL':
+    # Feed output to local folder
+    print('USING LOCAL STORAGE')
+    FEED_URI = 'file://{}'.format(os.path.realpath('output/%(name)s/{}.json'.format(today.strftime('%Y-%m-%d'))))
+    FEED_FORMAT = 'json'
+else:
+    #Feed output to S3
+    print('USING S3 STORAGE')
+    AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 
-#Feed output to S3
-AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+    FEED_URI = 's3://sgjobs-data/%(name)s/{}.json'.format(today.strftime('%Y-%m-%d'))
+    FEED_FORMAT = 'json'
 
-FEED_URI = 's3://sgjobs-data/%(name)s/{}.json'.format(today.strftime('%Y-%m-%d'))
-FEED_FORMAT = 'json'
 
-# print("AWS_ACCESS_KEY_ID: {}".format(os.environ.get('AWS_ACCESS_KEY_ID')))
-# print("AWS_SECRET_ACCESS_KEY: {}".format(os.environ.get('AWS_SECRET_ACCESS_KEY')))
-# print("DEPLOYMENT_ENV: {}".format(os.environ.get('DEPLOYMENT_ENV')))
-# print("MAX_PAGES: {}".format(os.environ.get('MAX_PAGES')))
-
-# else:
-#     # Feed output to local folder
-#     FEED_URI = 'file://{}'.format(os.path.realpath('output/%(name)s/{}.json'.format(today.strftime('%Y-%m-%d'))))
-#     FEED_FORMAT = 'json'
