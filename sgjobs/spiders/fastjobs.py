@@ -58,7 +58,11 @@ class FastjobsSpider(scrapy.Spider):
             data['expiring_on'] = expiring_on
         res = re.findall(r'minsalary\":\".+?\"', str(response.body))
         if res:
-            min_salary = int(res[0][res[0].find(':') + 2: res[0].rfind('"')].strip())
+            min_salary = res[0][res[0].find(':') + 2: res[0].rfind('"')].strip()
+            if min_salary.endswith('k'):
+                min_salary = float(min_salary[0:-1]) * 1000
+            else:
+                min_salary = float(min_salary)
             data['min_salary'] = min_salary
 
         yield data
