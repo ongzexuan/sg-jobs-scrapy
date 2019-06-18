@@ -12,8 +12,10 @@ class FastjobsSpider(scrapy.Spider):
     base_url = 'https://www.fastjobs.sg/singapore-jobs/en/all-categories-jobs/page-{}/'
     filter_prefix = 'https://www.fastjobs.sg/singapore-job-ad'
     default_max_limit = -1
-    start_urls = [base_url.format(1)]
-    crawl_page_limit = default_max_limit    
+    current_page = 1
+    start_urls = [base_url.format(current_page)]
+    crawl_page_limit = default_max_limit
+
 
     def parse(self, response):
 
@@ -25,10 +27,12 @@ class FastjobsSpider(scrapy.Spider):
             for r in results:
                 yield scrapy.Request(r['href'], callback=self.parse_posting)
 
+            self.current_page += 1
+            yield scrapy.Request(self.base_url.format(self.current_page), callback=self.parse)
             # Get next page
-            next_pages = soup.find_all('li', class_='next')
-            if next_pages and next_pages[0].a:
-                yield scrapy.Request(next_pages[0].a['href'], callback=self.parse)
+            # next_pages = soup.find_all('li', class_='next')
+            # if next_pages and next_pages[0].a:
+            #     yield scrapy.Request(next_pages[0].a['href'], callback=self.parse)
 
 
     def parse_posting(self, response):
