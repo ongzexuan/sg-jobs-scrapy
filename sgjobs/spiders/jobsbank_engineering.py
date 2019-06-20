@@ -20,10 +20,12 @@ class JobsbankSpider(scrapy.Spider):
         # Yield every result on the page
         for entry in results:
             categories = entry.get('categories', None)            
-            if categories and len(categories) == 1:
-                category_id = categories[0]['id']
-                if category_id == 11:
-                    yield entry
+            if categories:
+                for category in categories:
+                    category_id = category['id']
+                    if category_id == 11:
+                        yield entry
+                        break
 
         links = data.get('_links', None)
         if links:
