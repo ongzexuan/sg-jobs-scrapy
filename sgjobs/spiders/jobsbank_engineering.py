@@ -6,7 +6,7 @@ import scrapy
 class JobsbankSpider(scrapy.Spider):
     name = 'jobsbank-engineering'
     allowed_domains = ['mycareersfuture.sg']
-    base_url = 'https://api.mycareersfuture.sg/v2/jobs?limit={}&page={}'
+    base_url = 'https://api.mycareersfuture.sg/v2/jobs?limit={}&page={}&category=Engineering'
     default_max_limit = -1
     results_per_page = 100
     start_urls = [base_url.format(results_per_page, 1)]
