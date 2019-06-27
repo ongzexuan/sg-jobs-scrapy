@@ -23,11 +23,10 @@ class JobscentralSpider(scrapy.Spider):
             for entry in data:
                 yield scrapy.Request(self.job_url.format(entry['id']), callback=self.parse_posting)
 
-            JobscentralSpider.current_page += 1            
-            if JobscentralSpider.default_max_limit < 0 or JobscentralSpider.current_page <= self.default_max_limit:
-                yield scrapy.Request(self.base_url.format(JobscentralSpider.current_page, 
-                                                          JobscentralSpider.results_per_page), 
-                                                    callback=self.parse)
+            #if JobscentralSpider.default_max_limit < 0 or JobscentralSpider.current_page <= self.default_max_limit:
+            yield scrapy.Request(self.base_url.format(JobscentralSpider.current_page, 
+                                                      JobscentralSpider.results_per_page), 
+                                                callback=self.parse)
 
 
     def parse_posting(self, response):
