@@ -6,6 +6,7 @@ from datetime import date
 today = date.today()
 
 if os.path.isfile('.env'):
+    print('Loading local environment...')
     from dotenv import load_dotenv
     load_dotenv('.env')
 
