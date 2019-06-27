@@ -64,3 +64,4 @@ tmp/
 *.pyc
 *.sublime-project
 *.sublime-workspace
+output/
