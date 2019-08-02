@@ -101,20 +101,21 @@ HTTPCACHE_EXPIRATION_SECS = 0
 HTTPCACHE_DIR = 'httpcache'
 HTTPCACHE_IGNORE_HTTP_CODES = []
 HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+HTTPERROR_ALLOWED_CODES = [404]
 
 # Switch feed out depending on deployment
 if os.path.isfile('.env') and os.environ.get('DEVELOPMENT_ENV', None) == 'LOCAL':
     # Feed output to local folder
     print('USING LOCAL STORAGE')
-    FEED_URI = 'file://{}'.format(os.path.realpath('output/%(name)s/{}.json'.format(today.strftime('%Y-%m-%d'))))
-    FEED_FORMAT = 'json'
+    FEED_URI = 'file://{}'.format(os.path.realpath('output/%(name)s/{}.csv'.format(today.strftime('%Y-%m-%d'))))
+    FEED_FORMAT = 'csv'
 else:
     #Feed output to S3
     print('USING S3 STORAGE')
     AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
     AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 
-    FEED_URI = 's3://sgjobs-data/%(name)s/{}.json'.format(today.strftime('%Y-%m-%d'))
+    FEED_URI = 's3://sgjobs-data-edb/%(name)s/{}.json'.format(today.strftime('%Y-%m-%d'))
     FEED_FORMAT = 'json'
 
 
