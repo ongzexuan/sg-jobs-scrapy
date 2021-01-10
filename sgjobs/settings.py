@@ -22,7 +22,7 @@ if os.path.isfile('.env'):
 BOT_NAME = 'sgjobs'
 SPIDER_MODULES = ['sgjobs.spiders']
 NEWSPIDER_MODULE = 'sgjobs.spiders'
-
+LOG_LEVEL = "INFO"
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 USER_AGENT = 'Mozilla/5.0 (Windows NT 6.1; Win64; x64)'
@@ -104,16 +104,8 @@ HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 HTTPERROR_ALLOWED_CODES = [404]
 
 # Switch feed out depending on deployment
-if os.path.isfile('.env') and os.environ.get('DEVELOPMENT_ENV', None) == 'LOCAL':    
-    print('USING LOCAL STORAGE')
-    FEED_URI = 'file://{}'.format(os.path.realpath('output/%(name)s/{}.csv'.format(today.strftime('%Y-%m-%d'))))
-    FEED_FORMAT = 'csv'
-else:    
-    print('USING S3 STORAGE')
-    AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
-    AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
-
-    FEED_URI = 's3://sgjobs-data-edb/%(name)s/{}.json'.format(today.strftime('%Y-%m-%d'))
-    FEED_FORMAT = 'json'
+#print('USING LOCAL STORAGE')
+#FEED_URI = 'file://{}'.format(os.path.realpath('%(name)s/{}.csv'.format(today.strftime('%Y-%m-%d'))))
+#FEED_FORMAT = 'csv'
 
 
